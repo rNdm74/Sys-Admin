@@ -25,14 +25,29 @@ function UserList {
    return $userList
 }
 
+function AddUsers {
+   foreach ($u in $inputFile) {
+       #Write-Host $u.USERNAME
+       $dsn = "CN=" + $u.USERNAME + ",CN=Users,DC=groupB,DC=sqrawler,DC=com"
+       dsadd user $dsn -samid $u.USERNAME -fn $u.FIRSTNAME -ln $u.LASTNAME -pwd $u.PASSWORD
+   }
+}
+
+function DeleteUsers {
+   foreach ($u in $inputFile) {
+       #Write-Host $u.USERNAME
+       $dsn = "CN=" + $u.USERNAME + ",CN=Users,DC=groupB,DC=sqrawler,DC=com"
+       dsrm $dsn
+   }
+}
 
 
-$dsn = "CN=" + $inputfile.USERNAME + ",CN=Users,DC=groupB,DC=sqrawler,DC=com"
-dsadd user $dsn -samid $inputFile.USERNAME -fn $inputFile.FIRSTNAME -ln $inputFile.LASTNAME -pwd $inputFile.PASSWORD
 
-## Deletes users from csv
+## Adds users from CSV
+##
+#AddUsers
 
-#$dsn = "CN=" + $inputfile.USERNAME + ",CN=Users,DC=groupB,DC=sqrawler,DC=com"
-
-#dsrm $dsn
+## Deletes users from CSV
+##
+DeleteUsers
 
