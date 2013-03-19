@@ -1,6 +1,6 @@
 ## Example PowerShell script profile
 ##   by: Adam Charlton
-## date: 14March2013
+## date: 19March2013
 ## Add and delete users 
 ## 
 
@@ -13,29 +13,22 @@
 $inputFile = Import-CSV  users.csv
 
 
-
-
 ### FUNCTIONS
 ##
 
-## Returns an array of users.
+## Adds users from CSV file.
 ##
-function UserList {
-   $userList = $(&dsquery user -samid *)|%{$_.Split("=")[1].replace(",OU","").replace(",CN","")}
-   return $userList
-}
-
 function AddUsers {
    foreach ($u in $inputFile) {
-       #Write-Host $u.USERNAME
        $dsn = "CN=" + $u.USERNAME + ",CN=Users,DC=groupB,DC=sqrawler,DC=com"
        dsadd user $dsn -samid $u.USERNAME -fn $u.FIRSTNAME -ln $u.LASTNAME -pwd $u.PASSWORD
    }
 }
 
+## Deletes users from CSV file.
+##
 function DeleteUsers {
    foreach ($u in $inputFile) {
-       #Write-Host $u.USERNAME
        $dsn = "CN=" + $u.USERNAME + ",CN=Users,DC=groupB,DC=sqrawler,DC=com"
        dsrm $dsn
    }
@@ -45,9 +38,9 @@ function DeleteUsers {
 
 ## Adds users from CSV
 ##
-#AddUsers
+AddUsers
 
 ## Deletes users from CSV
 ##
-DeleteUsers
+#DeleteUsers
 
