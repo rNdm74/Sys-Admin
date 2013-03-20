@@ -1,0 +1,15 @@
+1.
+a) Power on 'DB1'
+b) Leave Windows Server 'ON'
+c) Power off all other servers
+
+2.
+a) Create user accounts for members in group
+b) Create user 'tclark'
+c) Enable SUDO for users
+
+3.
+a) Add user "jbloggs"
+b) Create a file named "foo" in jbloggs home dir
+c) Chown of foo to jbloggs
+d) Chmod foo to "rwx r-- -w-" (421)
